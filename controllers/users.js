@@ -24,9 +24,15 @@ function getUserId(req, res) {
       }
     })
     .catch((err) => {
-      res
-        .status(500)
-        .send({ message: 'Произошла ошибка в работе сервера', err });
+      if (err.name === 'CastError') {
+        res
+          .status(400)
+          .send({ message: 'Переданы некорректные данные ', ...err });
+      } else {
+        res
+          .status(500)
+          .send({ message: 'Произошла ошибка в работе сервера', err });
+      }
     });
 }
 //Создание пользователя +++
@@ -58,7 +64,7 @@ function updateUserProfile(req, res) {
           .status(404)
           .send({ message: `Пользователь c указанным _id не найден.` });
       } else {
-        res.status(201).send({ user });
+        res.status(200).send({ user });
       }
     })
     .catch((err) => {
@@ -83,7 +89,7 @@ function updateUserAvatar(req, res) {
           .status(404)
           .send({ message: `Пользователь c указанным _id не найден.` });
       } else {
-        res.status(201).send(user);
+        res.status(200).send(user);
       }
     })
     .catch((err) => {
