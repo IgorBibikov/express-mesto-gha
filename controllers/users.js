@@ -43,7 +43,6 @@ function createUser(req, res) {
       res.status(201).send({ data: user });
     })
     .catch((err) => {
-      console.log(err.name);
       if (err.name === 'ValidationError') {
         res.status(400).send({ message: 'Переданы некорректные данные', err });
       } else {
@@ -57,18 +56,22 @@ function createUser(req, res) {
 // Обновление профиля пользователя
 function updateUserProfile(req, res) {
   const { name, about } = req.body;
-  User.findByIdAndUpdate(req.user._id, { name, about })
+  User.findByIdAndUpdate(
+    req.user._id,
+    { name, about },
+    { runValidators: true, new: true },
+  )
     .then((user) => {
       if (!req.user._id) {
         res
           .status(404)
           .send({ message: 'Пользователь c указанным _id не найден.' });
       } else {
-        res.status(200).send({ user });
+        res.status(200).send({ data: user });
       }
     })
     .catch((err) => {
-      if (err === 'ValidationError') {
+      if (err.name === 'ValidationError') {
         res.status(400).send({ message: 'Переданы некорректные данные', err });
       } else {
         res
@@ -82,7 +85,11 @@ function updateUserProfile(req, res) {
 function updateUserAvatar(req, res) {
   const { avatar } = req.body;
 
-  return User.findByIdAndUpdate(req.user._id, { avatar })
+  return User.findByIdAndUpdate(
+    req.user._id,
+    { avatar },
+    { runValidators: true, new: true },
+  )
     .then((user) => {
       if (!req.user._id) {
         res
