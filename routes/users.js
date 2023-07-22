@@ -8,19 +8,19 @@ const {
   updateUserAvatar,
 } = require('../controllers/users');
 
-//Получение всех пользователей
+// Получение всех пользователей
 usersRoutes.get('/', getUsers);
 
-//Получение пользователя по ID
+// Получение пользователя по ID
 usersRoutes.get('/:userId', getUserId);
 
-//Создание пользователя
+// Создание пользователя
 usersRoutes.post('/', createUser);
 
-//Обновление профиля пользователя
+// Обновление профиля пользователя
 usersRoutes.patch('/me', updateUserProfile);
 
-//Обновление аватара
+// Обновление аватара
 usersRoutes.patch('/me/avatar', updateUserAvatar);
 
 module.exports = { usersRoutes };

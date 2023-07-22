@@ -1,6 +1,6 @@
 const Card = require('../models/card');
 
-//Получение всех карточек
+// Получение всех карточек
 function getCards(req, res) {
   return Card.find({})
     .then((cards) => res.status(200).send(cards))
@@ -11,7 +11,7 @@ function getCards(req, res) {
     });
 }
 
-//Создание карточки++
+// Создание карточки++
 function createСard(req, res) {
   const { name, link } = req.body;
   const owner = req.user;
@@ -29,35 +29,37 @@ function createСard(req, res) {
     });
 }
 
-//Удаление карточки по ID
+// Удаление карточки по ID
 function deleteCard(req, res) {
   Card.findByIdAndRemove(req.params.cardId)
     .then((card) => {
       if (!card) {
         res
           .status(404)
-          .send({ message: `Карточка с указанным _id не найдена.` });
+          .send({ message: 'Карточка с указанным _id не найдена.' });
       } else {
         res.send(card);
       }
     })
     .catch((err) => {
-      res.status(500).send({ message: 'Произошла ошибка в работе сервера' });
+      res
+        .status(500)
+        .send({ message: 'Произошла ошибка в работе сервера' }, err);
     });
 }
 
-//Установка лайка у карточки
+// Установка лайка у карточки
 function setLikeCard(req, res) {
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $addToSet: { likes: req.user._id } },
-    { new: true }
+    { new: true },
   )
     .then((card) => {
       if (!card) {
         res
           .status(404)
-          .send({ message: `Передан несуществующий _id карточки` });
+          .send({ message: 'Передан несуществующий _id карточки' });
       } else {
         res.status(200).send({ card });
       }
@@ -73,18 +75,18 @@ function setLikeCard(req, res) {
     });
 }
 
-//Удаление лайка у карточки
+// Удаление лайка у карточки
 function deleteLikeCard(req, res) {
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $pull: { likes: req.user._id } },
-    { new: true }
+    { new: true },
   )
     .then((card) => {
       if (!card) {
         res
           .status(404)
-          .send({ message: `Передан несуществующий _id карточки` });
+          .send({ message: 'Передан несуществующий _id карточки' });
       } else {
         res.status(200).send({ card });
       }

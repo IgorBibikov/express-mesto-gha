@@ -8,19 +8,19 @@ const {
   deleteLikeCard,
 } = require('../controllers/cards');
 
-//Получение всех карточек
+// Получение всех карточек
 cardsRoutes.get('/', getCards);
 
-//Создание карточки
+// Создание карточки
 cardsRoutes.post('/', createСard);
 
-//Удаление карточки по ID
+// Удаление карточки по ID
 cardsRoutes.delete('/:cardId', deleteCard);
 
-//Установка лайка у карточки
+// Установка лайка у карточки
 cardsRoutes.put('/:cardId/likes', setLikeCard);
 
-//Удаление лайка у карточки
+// Удаление лайка у карточки
 cardsRoutes.delete('/:cardId/likes', deleteLikeCard);
 
 module.exports = { cardsRoutes };

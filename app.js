@@ -13,13 +13,12 @@ app.use((req, res, next) => {
   next();
 });
 // Подключение к базе данных
-mongoose.connect('mongodb://127.0.0.1:27017/mestodb'),
-  {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-  };
+mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+});
 
 // Middleware объединение пакетов bodynm
 app.use(express.json());

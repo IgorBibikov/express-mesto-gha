@@ -1,6 +1,6 @@
 const User = require('../models/user');
 
-//Получение всех пользователей ++
+// Получение всех пользователей ++
 function getUsers(req, res) {
   return User.find({})
     .then((users) => res.status(200).send(users))
@@ -10,7 +10,7 @@ function getUsers(req, res) {
         .send({ message: 'Произошла ошибка в работе сервера', err });
     });
 }
-//Получение пользователя по ID ++++
+// Получение пользователя по ID ++++
 
 function getUserId(req, res) {
   User.findById(req.params.userId)
@@ -18,7 +18,7 @@ function getUserId(req, res) {
       if (!user) {
         res
           .status(404)
-          .send({ message: `Пользователь по указанному _id не найден.` });
+          .send({ message: 'Пользователь по указанному _id не найден.' });
       } else {
         res.status(200).send(user);
       }
@@ -35,7 +35,7 @@ function getUserId(req, res) {
       }
     });
 }
-//Создание пользователя +++
+// Создание пользователя +++
 function createUser(req, res) {
   User.create(req.body)
     .then((user) => {
@@ -54,7 +54,7 @@ function createUser(req, res) {
     });
 }
 
-//Обновление профиля пользователя
+// Обновление профиля пользователя
 function updateUserProfile(req, res) {
   const { name, about } = req.body;
   User.findByIdAndUpdate(req.user._id, { name, about })
@@ -62,7 +62,7 @@ function updateUserProfile(req, res) {
       if (!req.user._id) {
         res
           .status(404)
-          .send({ message: `Пользователь c указанным _id не найден.` });
+          .send({ message: 'Пользователь c указанным _id не найден.' });
       } else {
         res.status(200).send({ user });
       }
@@ -78,7 +78,7 @@ function updateUserProfile(req, res) {
     });
 }
 
-//Обновление аватара++
+// Обновление аватара++
 function updateUserAvatar(req, res) {
   const { avatar } = req.body;
 
@@ -87,7 +87,7 @@ function updateUserAvatar(req, res) {
       if (!req.user._id) {
         res
           .status(404)
-          .send({ message: `Пользователь c указанным _id не найден.` });
+          .send({ message: 'Пользователь c указанным _id не найден.' });
       } else {
         res.status(200).send(user);
       }
