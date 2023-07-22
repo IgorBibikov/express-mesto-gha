@@ -1,7 +1,5 @@
 const User = require("../models/user");
-const mongoose = require("mongoose");
-const validationError = require("mongoose").Error.ValidationError;
-const castError = require("mongoose").Error.CastError;
+
 // Получение всех пользователей ++
 function getUsers(req, res) {
   return User.find({})
