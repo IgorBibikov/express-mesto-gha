@@ -1,7 +1,8 @@
+const http2 = require('node:http2');
 const express = require('express');
 
 const routes = express.Router();
-const http2 = require('node:http2');
+
 const { usersRoutes } = require('./users');
 const { cardsRoutes } = require('./cards');
 
