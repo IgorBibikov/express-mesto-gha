@@ -25,7 +25,7 @@ const ValidationLogin = celebrate({
 
 // Валидация получения пользователя по ID
 const ValidationGetUserId = celebrate({
-  body: Joi.object().keys({
+  params: Joi.object().keys({
     userId: Joi.string().length(24).required(),
   }),
 });
@@ -64,7 +64,7 @@ const ValidationCreateСard = celebrate({
 // Валидация удаления карточки по ID
 
 const ValidationDeleteCard = celebrate({
-  body: Joi.object().keys({
+  params: Joi.object().keys({
     cardId: Joi.string().length(24).required(),
   }),
 });
@@ -72,14 +72,14 @@ const ValidationDeleteCard = celebrate({
 // Валидация установки лайка у карточки
 
 const ValidationSetLikeCard = celebrate({
-  body: Joi.object().keys({
+  params: Joi.object().keys({
     cardId: Joi.string().length(24).required(),
   }),
 });
 // Валидация удаления у карточки
 
 const ValidationDeleteLikeCard = celebrate({
-  body: Joi.object().keys({
+  params: Joi.object().keys({
     cardId: Joi.string().length(24).required(),
   }),
 });
