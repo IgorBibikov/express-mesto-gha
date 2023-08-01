@@ -3,24 +3,30 @@ const usersRoutes = require('express').Router();
 const {
   getUsers,
   getUserId,
-  createUser,
   updateUserProfile,
   updateUserAvatar,
+  getCurrentUser,
 } = require('../controllers/users');
+
+const {
+  ValidationGetUserId,
+  ValidationUpdateUserProfile,
+  ValidationUpdateUserAvatar,
+} = require('../middlewares/validation');
 
 // Получение всех пользователей
 usersRoutes.get('/', getUsers);
 
-// Получение пользователя по ID
-usersRoutes.get('/:userId', getUserId);
+// Получение текущего пользователя
+usersRoutes.get('/me', getCurrentUser);
 
-// Создание пользователя
-usersRoutes.post('/', createUser);
+// Получение пользователя по ID
+usersRoutes.get('/:userId', ValidationGetUserId, getUserId);
 
 // Обновление профиля пользователя
-usersRoutes.patch('/me', updateUserProfile);
+usersRoutes.patch('/me', ValidationUpdateUserProfile, updateUserProfile);
 
 // Обновление аватара
-usersRoutes.patch('/me/avatar', updateUserAvatar);
+usersRoutes.patch('/me/avatar', ValidationUpdateUserAvatar, updateUserAvatar);
 
 module.exports = { usersRoutes };

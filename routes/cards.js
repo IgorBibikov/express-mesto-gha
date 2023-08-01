@@ -7,20 +7,26 @@ const {
   setLikeCard,
   deleteLikeCard,
 } = require('../controllers/cards');
+const {
+  ValidationCreateСard,
+  ValidationDeleteCard,
+  ValidationSetLikeCard,
+  ValidationDeleteLikeCard,
+} = require('../middlewares/validation');
 
 // Получение всех карточек
 cardsRoutes.get('/', getCards);
 
 // Создание карточки
-cardsRoutes.post('/', createСard);
+cardsRoutes.post('/', ValidationCreateСard, createСard);
 
 // Удаление карточки по ID
-cardsRoutes.delete('/:cardId', deleteCard);
+cardsRoutes.delete('/:cardId', ValidationDeleteCard, deleteCard);
 
 // Установка лайка у карточки
-cardsRoutes.put('/:cardId/likes', setLikeCard);
+cardsRoutes.put('/:cardId/likes', ValidationSetLikeCard, setLikeCard);
 
 // Удаление лайка у карточки
-cardsRoutes.delete('/:cardId/likes', deleteLikeCard);
+cardsRoutes.delete('/:cardId/likes', ValidationDeleteLikeCard, deleteLikeCard);
 
 module.exports = { cardsRoutes };
