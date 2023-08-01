@@ -6,13 +6,13 @@ module.exports = (req, res, next) => {
   if (!token) {
     next(new UnAuthorizedErr('Необходима авторизация'));
   }
+
   let payload;
   try {
     payload = jwt.verify(token, 'some-secret-key');
   } catch (err) {
     next(new UnAuthorizedErr('Необходима авторизация'));
   }
-
   req.user = payload;
   next();
 };
