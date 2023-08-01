@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const { PORT = 3000 } = process.env;
 const cookies = require('cookie-parser');
 
+const { errors } = require('celebrate');
 const { routes } = require('./routes/index');
 
 const { login, createUser } = require('./controllers/users');
@@ -48,6 +49,8 @@ app.post('/signup', ValidationСreateUser, createUser);
 app.use(auth);
 
 app.use(routes);
+
+app.use(errors());
 
 app.use((err, req, res, next) => {
   if (err.statusCode) {
