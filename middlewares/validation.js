@@ -1,14 +1,12 @@
-const { celebrate, Joi } = require('celebrate');
-
+const { celebrate, Joi } = require("celebrate");
+const regexp = /^(https?:\/\/)?([\w-]{1,32}\.[\w-]{1,32})[^\s@]*$/;
 // Валидация создания пользователя
 
 const ValidationСreateUser = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
-    avatar: Joi.string()
-      .min(2)
-      .pattern(/^(https?:\/\/)?([\w-]{1,32}\.[\w-]{1,32})[^\s@]*$/),
+    avatar: Joi.string().min(2).pattern(regexp),
     email: Joi.string().required().email(),
     password: Joi.string().required().min(6),
   }),
@@ -43,9 +41,7 @@ const ValidationUpdateUserProfile = celebrate({
 
 const ValidationUpdateUserAvatar = celebrate({
   body: Joi.object().keys({
-    avatar: Joi.string()
-      .min(2)
-      .pattern(/^(https?:\/\/)?([\w-]{1,32}\.[\w-]{1,32})[^\s@]*$/),
+    avatar: Joi.string().min(2).pattern(regexp),
   }),
 });
 
@@ -54,10 +50,7 @@ const ValidationUpdateUserAvatar = celebrate({
 const ValidationCreateСard = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30).required(),
-    link: Joi.string()
-      .min(2)
-      .required()
-      .pattern(/^(https?:\/\/)?([\w-]{1,32}\.[\w-]{1,32})[^\s@]*$/),
+    link: Joi.string().min(2).required().pattern(regexp),
   }),
 });
 
