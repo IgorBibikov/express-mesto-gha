@@ -1,9 +1,11 @@
+const http2 = require('node:http2');
+
 const express = require('express');
 const mongoose = require('mongoose');
 
 const { PORT = 3000 } = process.env;
 const cookies = require('cookie-parser');
-const http2 = require('node:http2');
+
 const { routes } = require('./routes/index');
 
 const { login, createUser } = require('./controllers/users');
